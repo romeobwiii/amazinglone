@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+      <source src="assets/videos/love2.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Overlay -->
+  <div class="overlay">
+    <div class="content gallery">
+      <h1 class="animated-text">Our Moments Together</h1>
+      <p class="animated-text">Every photo is more than a memory, Lone — it’s a piece of how I see you.</p>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid">
+        <img src="assets/images/photo1.jpg" alt="Memory 1" class="grid-photo">
+        <img src="assets/images/photo2.jpg" alt="Memory 2" class="grid-photo">
+        <img src="assets/images/photo3.jpg" alt="Memory 3" class="grid-photo">
+        <img src="assets/images/photo4.jpg" alt="Memory 4" class="grid-photo">
+        <img src="assets/images/photo5.jpg" alt="Memory 5" class="grid-photo">
+      </div>
+
+      <!-- Slideshow -->
+      <div class="slideshow">
+        <div class="slides fade"><img src="assets/images/photo1.jpg" alt=""></div>
+        <div class="slides fade"><img src="assets/images/photo2.jpg" alt=""></div>
+        <div class="slides fade"><img src="assets/images/photo3.jpg" alt=""></div>
+        <div class="slides fade"><img src="assets/images/photo4.jpg" alt=""></div>
+        <div class="slides fade"><img src="assets/images/photo5.jpg" alt=""></div>
+      </div>
+
+      <a href="index.html" class="btn animated-text">Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+  // Romantic AI voice-over
+  const message = `
+Lone, Mulax got you covered. 
+If I ever fall into your hands, I will care for you endlessly. 
+I just want to keep looking at this cute, amazing girl. 
+I promise to do whatever it takes to make you happy.
+  `;
+
+  let slideIndex = 0;
+  function showSlides() {
+      let slides = document.getElementsByClassName("slides");
+      for (let i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}
+      slides[slideIndex-1].style.display = "block";
+      setTimeout(showSlides, 4000); // 4s per slide
+  }
+
+  window.onload = () => {
+      // Animate text
+      const animatedElements = document.querySelectorAll('.animated-text');
+      animatedElements.forEach((el, i) => {
+          el.style.opacity = 0;
+          el.style.animation = `fadeInUp 1s forwards`;
+          el.style.animationDelay = `${i * 0.5}s`;
+      });
+
+      // Start slideshow
+      showSlides();
+
+      // AI speaks for you
+      setTimeout(() => {
+          if ('speechSynthesis' in window) {
+              const utterance = new SpeechSynthesisUtterance(message);
+              utterance.lang = 'en-US';
+              utterance.rate = 0.95;
+              utterance.pitch = 1.1;
+              window.speechSynthesis.speak(utterance);
+          }
+      }, 1500);
+  };
+  </script>
+
+</body>
+</html>

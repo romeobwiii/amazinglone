@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="assets/videos/hope.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Floating Hearts -->
+  <div class="hearts"></div>
+
+  <!-- Overlay Content -->
+  <div class="overlay">
+    <div class="content about">
+      <h1 class="animated-text">About Me</h1>
+
+      <p class="animated-text">
+        Hello, Lone! I’m so happy I met you. Honestly, just being near you made my heart race—I could truly feel your presence.
+      </p>
+
+      <p class="animated-text">
+        I know I was shaking a little—that was my first time seeing a beautiful girl like you. Every little thing about that moment felt unforgettable.
+      </p>
+
+      <p class="animated-text">
+        And about that chocolate I gave you… I gave it with all my heart. I hope you enjoyed it as much as I enjoyed seeing you smile when you received it.
+      </p>
+
+      <h2 class="animated-text">My Tech World</h2>
+      <p class="animated-text">
+        Beyond my feelings for that day, I’m passionate about coding, exploring new ideas, and creating experiences that connect people. But meeting you reminded me that the best connections happen in real life.
+      </p>
+
+      <h2 class="animated-text">My Message to You</h2>
+      <p class="animated-text">
+        I wish to see you again, to share more moments, laughter, and smiles. That day left a lasting impression on me, and I hope this page gives you a little sense of how I felt.
+      </p>
+
+      <!-- Button now goes to gallery.html -->
+      <a href="gallery.html" class="btn animated-text">➡ View Our Gallery</a>
+    </div>
+  </div>
+
+  <!-- Voice Message (Text-to-Speech) -->
+  <script>
+    const message = `
+Hello Lone! I’m so happy I met you. Honestly, just being near you made my heart race—I could truly feel your presence.
+I know I was shaking a little—that was my first time seeing a beautiful girl like you.
+And about that chocolate I gave you… I gave it with all my heart. I hope you enjoyed it as much as I enjoyed seeing you smile when you received it.
+I wish to see you again, to share more moments, laughter, and smiles.
+`;
+
+    window.onload = () => {
+      // Animate text sequentially
+      const animatedElements = document.querySelectorAll('.animated-text');
+      animatedElements.forEach((el, i) => {
+        el.style.opacity = 0;
+        el.style.animation = `fadeInUp 1s forwards`;
+        el.style.animationDelay = `${i * 0.6}s`;
+      });
+
+      // Voice message after slight delay
+      setTimeout(() => {
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(message);
+          utterance.lang = 'en-US';
+          utterance.rate = 0.95;
+          utterance.pitch = 1;
+          utterance.volume = 1;
+          window.speechSynthesis.speak(utterance);
+        }
+      }, 1500);
+    };
+  </script>
+
+  <!-- Floating Hearts Animation -->
+  <script>
+    const heartsContainer = document.querySelector('.hearts');
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 5 + Math.random() * 5 + 's';
+      const size = 15 + Math.random() * 25;
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>
